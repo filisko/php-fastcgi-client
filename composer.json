@@ -44,6 +44,8 @@
         }
     },
     "scripts": {
+        "cs": "phpcs",
+        "cs-fix": "php-cs-fixer fix",
         "phpstan": "phpstan analyse",
         "test": "phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit",
