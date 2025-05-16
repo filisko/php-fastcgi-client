@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Filisko\Tests;
 
-class FastCgiTestHelper
+class FastcgiTestHelper
 {
     public static function buildRecord(int $type, int $requestId, string $content = ''): string
     {

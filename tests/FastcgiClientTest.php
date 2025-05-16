@@ -7,12 +7,12 @@ use Filisko\FakeFallback;
 use Filisko\FakeFunctions;
 use Filisko\FakeStack;
 use Filisko\FakeStatic;
-use Filisko\FastCgiClient;
+use Filisko\FastcgiClient;
 use Filisko\SocketException;
 use PHPUnit\Framework\TestCase;
 use Sunrise\Http\Message\Request;
 
-class ClientTest extends TestCase
+class FastcgiClientTest extends TestCase
 {
 //    public function test_it_throws_an_exception_when_there_arent_modules(): void
 //    {
@@ -54,7 +54,7 @@ class ClientTest extends TestCase
             'socket_strerror' => 'Protocol not supported',
         ]);
 
-        $client = new FastCgiClient('10.5.32.2', 9000, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', 9000, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage("Socket could not be created: Protocol not supported (93)");
@@ -72,7 +72,7 @@ class ClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastCgiClient('10.5.32.2', 9000, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', 9000, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to connect to 10.5.32.2:9000: No route to host (113)');
@@ -90,7 +90,7 @@ class ClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastCgiClient('10.5.32.2', null, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', null, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to connect to 10.5.32.2: No route to host (113)');
@@ -107,7 +107,7 @@ class ClientTest extends TestCase
             'socket_set_option' => false
         ]);
 
-        $client = new FastCgiClient('10.5.30.2', 9000, 3000, $functions);
+        $client = new FastcgiClient('10.5.30.2', 9000, 3000, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to set timeout to 3000 ms');
@@ -121,7 +121,7 @@ class ClientTest extends TestCase
         // a FastCGI response consists of STDOUT, STDERR (optional) and END_REQUEST
         // in this test we only include STDOUT and END_REQUEST
        // combined socket data (fetched piece by piece)
-        $socketData = FastCgiTestHelper::responseWithStdoutOnly("Content-Type: text/html\r\n\r\nHello");
+        $socketData = FastcgiTestHelper::responseWithStdoutOnly("Content-Type: text/html\r\n\r\nHello");
 
         $position = 0;
 
@@ -152,7 +152,7 @@ class ClientTest extends TestCase
         ], true);
 
 //        $client = new FastCgiClient('10.5.0.2', 9000, 500);
-        $client = new FastCgiClient('10.5.0.2', 9000, 1000, $functions);
+        $client = new FastcgiClient('10.5.0.2', 9000, 1000, $functions);
 
         $request = new Request('GET', 'https://filis.trekkly.local/identity/register');
         $response = $client->sendAsync($request);
@@ -172,7 +172,7 @@ class ClientTest extends TestCase
         // a FastCGI response consists of STDOUT, STDERR (optional) and END_REQUEST
         // in this test we include all of them, especially STDERR, to simulate an error
 
-        $socketData = FastCgiTestHelper::responseWithStderr(
+        $socketData = FastcgiTestHelper::responseWithStderr(
             "Content-Type: text/html\r\n\r\nHello",
             "Something went wrong"
         );
@@ -198,7 +198,7 @@ class ClientTest extends TestCase
             'microtime' => new FakeStack([1747210962, 1747210962, 1747210962]),
         ], true);
 
-        $client = new FastCgiClient('10.5.0.2', 9000, 500, $functions);
+        $client = new FastcgiClient('10.5.0.2', 9000, 500, $functions);
         $request = new Request('GET', 'https://filis.trekkly.local/identity/register');
 
         $this->expectException(SocketException::class);

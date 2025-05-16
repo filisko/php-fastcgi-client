@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace Filisko\Tests;
 
-use Filisko\FastCgiRequest;
+use Filisko\FastcgiRequest;
 use PHPUnit\Framework\TestCase;
 use Sunrise\Http\Message\Request;
 use Sunrise\Http\Message\Stream;
 
-class FastCgiRequestTest extends TestCase
+class FastcgiRequestTest extends TestCase
 {
     public function test_defaults(): void
     {
         $psrRequest = new Request();
 
-        $fastCgiRequest = FastCgiRequest::fromPsrRequest($psrRequest);
+        $fastCgiRequest = FastcgiRequest::fromPsrRequest($psrRequest);
 
-        $expectedFastCgiRequest = new FastCgiRequest([
+        $expectedFastCgiRequest = new FastcgiRequest([
             'REQUEST_URI' => '/',
             'REQUEST_METHOD'  => 'GET',
         ]);
@@ -45,9 +45,9 @@ class FastCgiRequestTest extends TestCase
             'X-Auth' => 'xxxxx',
         ], $body);
 
-        $fastCgiRequest = FastCgiRequest::fromPsrRequest($psrRequest);
+        $fastCgiRequest = FastcgiRequest::fromPsrRequest($psrRequest);
 
-        $expectedFastCgiRequest = new FastCgiRequest([
+        $expectedFastCgiRequest = new FastcgiRequest([
 //            "SCRIPT_FILENAME" => "/var/www/html/public/index.php",
             'REQUEST_METHOD'  => 'PUT',
             'REQUEST_URI' => '/auth/login',

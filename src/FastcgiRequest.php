@@ -8,7 +8,7 @@ use Psr\Http\Message\RequestInterface;
 /**
  * @internal Used to generate a FastCGI request from a PSR-7 request
  */
-class FastCgiRequest
+class FastcgiRequest
 {
     /**
      * Environment variables, but in FastCGI's lang it's Params

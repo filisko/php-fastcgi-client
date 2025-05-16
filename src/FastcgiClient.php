@@ -48,7 +48,7 @@ use Psr\Http\Message\ResponseInterface;
  * echo $response->getStatusCode();
  * echo (string) $response->getBody();
  */
-class FastCgiClient implements ClientInterface
+class FastcgiClient implements ClientInterface
 {
     /**
      * Value for version of FCGI Header
@@ -199,7 +199,7 @@ class FastCgiClient implements ClientInterface
     {
         $this->connect();
 
-        $fastCgiRequest = FastCgiRequest::fromPsrRequest($request);
+        $fastCgiRequest = FastcgiRequest::fromPsrRequest($request);
         $params = $fastCgiRequest->params();
         $params['SCRIPT_FILENAME'] = '/var/www/html/public/index.php';
 
