@@ -1,0 +1,7 @@
+build
+vendor
+composer.lock
+coverage
+*.cache
+.idea
+kit
