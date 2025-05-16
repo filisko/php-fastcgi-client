@@ -48,7 +48,7 @@ use Psr\Http\Message\ResponseInterface;
  * echo $response->getStatusCode();
  * echo (string) $response->getBody();
  */
-class FastcgiClient implements ClientInterface
+class FastcgiClient implements FastcgiClientInterface
 {
     /**
      * Value for version of FCGI Header
@@ -174,19 +174,26 @@ class FastcgiClient implements ClientInterface
     protected $completedResponses = [];
 
     /**
+     * @var array<string, string> Default FastCGI params.
+     */
+    protected $params;
+
+    /**
      * @param string $host Host of the FastCGI application or path to the FastCGI unix socket
      * @param ?int $port Port of the FastCGI application or null for the FastCGI unix socket
+     * @param array<string,string> $params Default FastCGI params.
      */
     public function __construct(
-//        string $scriptFilename,
         string $host,
         ?int $port = null,
+        array $params = [],
         ?int $timeout = null,
         ?Functions $functions = null,
         ?ResponseFactoryInterface $responseFactory = null
     ) {
         $this->host = $host;
         $this->port = $port ?? 0;
+        $this->params = $params;
         $this->timeout = $timeout;
         $this->functions = $functions ?? new Functions();
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
@@ -195,13 +202,19 @@ class FastcgiClient implements ClientInterface
     /**
      * @return PromiseInterface<ResponseInterface>
      */
-    public function sendAsync(RequestInterface $request): PromiseInterface
+    public function sendAsync(RequestInterface $request, array $params = []): PromiseInterface
     {
-        $this->connect();
-
         $fastCgiRequest = FastcgiRequest::fromPsrRequest($request);
-        $params = $fastCgiRequest->params();
-        $params['SCRIPT_FILENAME'] = '/var/www/html/public/index.php';
+        $psrParams = $fastCgiRequest->params();
+        $paramsForRequest = array_merge($this->params, $psrParams, $params);
+
+        if (!isset($paramsForRequest['SCRIPT_FILENAME'])) {
+            throw new InvalidArgumentException('SCRIPT_FILENAME is required for FastCGI requests');
+        }
+
+//        $defaultParams['SCRIPT_FILENAME'] = '/var/www/html/public/index.php';
+
+        $this->connect();
 
         $stdin = $fastCgiRequest->body();
 
@@ -224,7 +237,7 @@ class FastcgiClient implements ClientInterface
         );
 
         $fastCgiRequestParams = '';
-        foreach ($params as $key => $value) {
+        foreach ($paramsForRequest as $key => $value) {
             $fastCgiRequestParams .= $this->buildNameValuePair($key, $value);
         }
 

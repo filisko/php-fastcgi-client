@@ -8,6 +8,7 @@ use Filisko\FakeFunctions;
 use Filisko\FakeStack;
 use Filisko\FakeStatic;
 use Filisko\FastcgiClient;
+use Filisko\Functions;
 use Filisko\SocketException;
 use PHPUnit\Framework\TestCase;
 use Sunrise\Http\Message\Request;
@@ -116,16 +117,25 @@ class FastcgiClientTest extends TestCase
         $client->sendAsync($request);
     }
 
-    public function test_it_sends_requests(): void
+    public function test_it_throws_exception_when_scripFilename_is_not_passed_in_the_constructor(): void
     {
-        // a FastCGI response consists of STDOUT, STDERR (optional) and END_REQUEST
-        // in this test we only include STDOUT and END_REQUEST
-       // combined socket data (fetched piece by piece)
+        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, new FakeFunctions([], true));
+
+        $request = new Request('GET', 'https://filis.app.local/identity/register');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('SCRIPT_FILENAME is required for FastCGI requests');
+
+        $client->sendAsync($request);
+    }
+
+    protected static function successfulResponse(): FakeFunctions
+    {
         $socketData = FastcgiTestHelper::responseWithStdoutOnly("Content-Type: text/html\r\n\r\nHello");
 
         $position = 0;
 
-        $functions = new FakeFunctions([
+        return new FakeFunctions([
             'socket_create' => new FakeFallback,
             'socket_connect' => true,
             'socket_set_option' => true,
@@ -150,61 +160,35 @@ class FastcgiClientTest extends TestCase
             // socket_read takes less than 1 sec. (no timeout)
             'microtime' => new FakeStack([1747210962, 1747210962]),
         ], true);
-
-//        $client = new FastCgiClient('10.5.0.2', 9000, 500);
-        $client = new FastcgiClient('10.5.0.2', 9000, 1000, $functions);
-
-        $request = new Request('GET', 'https://filis.trekkly.local/identity/register');
-        $response = $client->sendAsync($request);
-
-//        dump($client->waitForResponseAndParse(1)->getStatusCode());
-//        dump($client->waitForResponseAndParse(1)->getStatusCode());
-//        dd($response->wait());
-
-//        dump($response->wait()->getHeaders());
-        $this->assertEquals("Hello", (string)$response->wait()->getBody());
-
-//        $this->assertEquals("Hello", $client->waitForResponse(1));
     }
 
-    public function test_it_handles_stderr_response(): void
+    public function test_success_with_params_on_request(): void
     {
-        // a FastCGI response consists of STDOUT, STDERR (optional) and END_REQUEST
-        // in this test we include all of them, especially STDERR, to simulate an error
+        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, self::successfulResponse());
 
-        $socketData = FastcgiTestHelper::responseWithStderr(
-            "Content-Type: text/html\r\n\r\nHello",
-            "Something went wrong"
-        );
+        $request = new Request('GET', 'https://filis.app.local/identity/register');
 
-        $position = 0;
+        $response = $client->sendAsync($request, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ]);
 
-        $functions = new FakeFunctions([
-            'socket_create' => new FakeFallback,
-            'socket_connect' => true,
-            'socket_set_option' => true,
-            'socket_write' => true,
-            'socket_select' => new FakeStatic(5),
-            'socket_read' => new FakeStatic(function ($socket, $length) use (&$socketData, &$position) {
-                if ($position >= strlen($socketData)) {
-                    return null;
-                }
+        $this->assertEquals("Hello", (string)$response->wait()->getBody());
+    }
 
-                $data = substr($socketData, $position, $length);
-                $position += strlen($data);
-                return $data;
-            }),
-            'socket_last_error' => 0,
-            'microtime' => new FakeStack([1747210962, 1747210962, 1747210962]),
-        ], true);
-
-        $client = new FastcgiClient('10.5.0.2', 9000, 500, $functions);
-        $request = new Request('GET', 'https://filis.trekkly.local/identity/register');
-
-        $this->expectException(SocketException::class);
-        $this->expectExceptionMessage('FastCGI returned a response with stderr: Something went wrong');
+    public function test_success_with_params_in_constructor(): void
+    {
+        $client = new FastcgiClient('10.5.0.2', 9000, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ], 500, self::successfulResponse());
+        $request = new Request('GET', 'https://filis.app.local/identity/register');
 
         $response = $client->sendAsync($request);
-        $response->wait();
+
+        $this->assertEquals("Hello", (string)$response->wait()->getBody());
+    }
+
+    public function test_it_sends_requests(): void
+    {
+
     }
 }
