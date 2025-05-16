@@ -212,12 +212,9 @@ class FastcgiClient implements FastcgiClientInterface
             throw new InvalidArgumentException('SCRIPT_FILENAME is required for FastCGI requests');
         }
 
-//        $defaultParams['SCRIPT_FILENAME'] = '/var/www/html/public/index.php';
-
         $this->connect();
 
         $stdin = $fastCgiRequest->body();
-
         $id = $this->nextRequestId();
 
         // -----------------------------------------------------------------------------
@@ -242,7 +239,7 @@ class FastcgiClient implements FastcgiClientInterface
         }
 
         // -----------------------------------------------------------------------------
-        // Start of PARAMS record (add if exists)
+        // Add PARAMS value if exists
         // -----------------------------------------------------------------------------
 
         // Add extracted values from RequestInterface (REQUEST_METHOD, REQUEST_URI, HTTP_HOST) as (ENV) PARAMS
@@ -251,7 +248,7 @@ class FastcgiClient implements FastcgiClientInterface
         }
 
         // -----------------------------------------------------------------------------
-        // Signal the end of PARAMS (doesn't matter if its empty)
+        // Signal the end of PARAMS (doesn't matter if a value was not set)
         // -----------------------------------------------------------------------------
         // The application will keep reading from PARAMS until it encounters an
         // end-of-stream indication, which is a PARAMS record with contentLength = 0
@@ -259,7 +256,7 @@ class FastcgiClient implements FastcgiClientInterface
         $fastCgiRequest .= $this->buildRecord(self::TYPE_PARAMS, '', $id);
 
         // -----------------------------------------------------------------------------
-        // Start of STDIN record (add if exists)
+        // Add STDIN value if exists
         // -----------------------------------------------------------------------------
 
         // Add the body (JSON, form data, etc.) of RequestInterface to STDIN
@@ -268,7 +265,7 @@ class FastcgiClient implements FastcgiClientInterface
         }
 
         // -----------------------------------------------------------------------------
-        // Signal the end of STDIN (doesn't matter if its empty)
+        // Signal the end of STDIN (doesn't matter if a value was not set)
         // -----------------------------------------------------------------------------
         // The application will keep reading from STDIN until it encounters an
         // end-of-stream indication, which is a STDIN record with contentLength = 0
