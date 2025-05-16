@@ -183,7 +183,7 @@ class FastcgiClient implements ClientInterface
         ?int $port = null,
         ?int $timeout = null,
         ?Functions $functions = null,
-        ?ResponseFactoryInterface $responseFactory = null,
+        ?ResponseFactoryInterface $responseFactory = null
     ) {
         $this->host = $host;
         $this->port = $port ?? 0;
