@@ -188,15 +188,15 @@ class FastcgiClient implements FastcgiClientInterface
         ?int $port = null,
         array $params = [],
         ?int $timeout = null,
-        ?Functions $functions = null,
-        ?ResponseFactoryInterface $responseFactory = null
+        ?ResponseFactoryInterface $responseFactory = null,
+        ?Functions $functions = null
     ) {
         $this->host = $host;
         $this->port = $port ?? 0;
         $this->params = $params;
         $this->timeout = $timeout;
-        $this->functions = $functions ?? new Functions();
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
+        $this->functions = $functions ?? new Functions();
     }
 
     /**
@@ -407,17 +407,6 @@ class FastcgiClient implements FastcgiClientInterface
         if (!empty($stderr)) {
             throw SocketException::forStderrResponse($stderr);
         }
-
-//        // create a stream for the body
-//        $bodyStream = new \Laminas\Diactoros\Stream('php://temp', 'r+');
-//        $bodyStream->write($fastCgiResponse['body']);
-//        $bodyStream->rewind();
-//
-//        // create the PSR-7 response
-//        $response = new \Laminas\Diactoros\Response(
-//            $bodyStream,
-//            $fastCgiResponse['status'],
-//        );
 
         $response = $this->responseFactory->createResponse($fastCgiResponse['status']);
         $response->getBody()->write($fastCgiResponse['body']);

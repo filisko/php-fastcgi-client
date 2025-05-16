@@ -55,7 +55,7 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'Protocol not supported',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', 9000, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', 9000, [], null, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage("Socket could not be created: Protocol not supported (93)");
@@ -73,7 +73,7 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', 9000, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', 9000, [], null, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to connect to 10.5.32.2:9000: No route to host (113)');
@@ -91,7 +91,7 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', null, null, $functions);
+        $client = new FastcgiClient('10.5.32.2', null, [], null, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to connect to 10.5.32.2: No route to host (113)');
@@ -108,7 +108,7 @@ class FastcgiClientTest extends TestCase
             'socket_set_option' => false
         ]);
 
-        $client = new FastcgiClient('10.5.30.2', 9000, 3000, $functions);
+        $client = new FastcgiClient('10.5.30.2', 9000, [], 3000, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to set timeout to 3000 ms');
@@ -119,7 +119,7 @@ class FastcgiClientTest extends TestCase
 
     public function test_it_throws_exception_when_scripFilename_is_not_passed_in_the_constructor(): void
     {
-        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, new FakeFunctions([], true));
+        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, null, new FakeFunctions([], true));
 
         $request = new Request('GET', 'https://filis.app.local/identity/register');
 
@@ -164,7 +164,7 @@ class FastcgiClientTest extends TestCase
 
     public function test_success_with_params_on_request(): void
     {
-        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, self::successfulResponse());
+        $client = new FastcgiClient('10.5.0.2', 9000, [], 1000, null, self::successfulResponse());
 
         $request = new Request('GET', 'https://filis.app.local/identity/register');
 
@@ -179,7 +179,8 @@ class FastcgiClientTest extends TestCase
     {
         $client = new FastcgiClient('10.5.0.2', 9000, [
             'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
-        ], 500, self::successfulResponse());
+        ], 500, null, self::successfulResponse());
+
         $request = new Request('GET', 'https://filis.app.local/identity/register');
 
         $response = $client->sendAsync($request);
