@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Filisko\Tests;
+namespace Filisko\Tests\Helpers;
 
 class FastcgiTestHelper
 {

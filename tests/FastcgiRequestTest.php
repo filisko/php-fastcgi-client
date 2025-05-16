@@ -27,7 +27,7 @@ class FastcgiRequestTest extends TestCase
         );
     }
 
-    public function test_it_throws_an_exception_when_there_arent_modules(): void
+    public function test_psr7_to_fastcgi_mapping(): void
     {
         $json = json_encode([
             'key' => 'value'
@@ -39,16 +39,14 @@ class FastcgiRequestTest extends TestCase
 
         $body = new Stream($resource);
 
-        $psrRequest = new Request('PUT', '/auth/login?key=value', [
+        $psrRequest = new Request('PUT', 'https://subdomain.example.com/auth/login?key=value', [
             'Content-Type' => 'application/json',
-            'Host' => 'subdomain.example.com',
             'X-Auth' => 'xxxxx',
         ], $body);
 
         $fastCgiRequest = FastcgiRequest::fromPsrRequest($psrRequest);
 
         $expectedFastCgiRequest = new FastcgiRequest([
-//            "SCRIPT_FILENAME" => "/var/www/html/public/index.php",
             'REQUEST_METHOD'  => 'PUT',
             'REQUEST_URI' => '/auth/login',
             'HTTP_X_AUTH' => 'xxxxx',

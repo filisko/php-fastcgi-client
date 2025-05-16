@@ -8,45 +8,13 @@ use Filisko\FakeFunctions;
 use Filisko\FakeStack;
 use Filisko\FakeStatic;
 use Filisko\FastcgiClient;
-use Filisko\Functions;
 use Filisko\SocketException;
+use Filisko\Tests\Helpers\FastcgiTestHelper;
 use PHPUnit\Framework\TestCase;
 use Sunrise\Http\Message\Request;
 
 class FastcgiClientTest extends TestCase
 {
-//    public function test_it_throws_an_exception_when_there_arent_modules(): void
-//    {
-//        $functions = new FakeFunctions([]);
-////        $functions = new FakeFunctions([], true);
-//
-//        $client = new ClientOld('10.5.0.2', 9000,  $functions);
-//
-//        $postData = http_build_query([
-//            'username' => 'john_doe',
-//            'email' => 'john@example.com',
-//            'message' => 'Hello, this is a test POST request!'
-//        ]);
-//
-//
-//        $content = 'key=value';
-//        $s = $client->request(
-//            [
-//                "HTTP_HOST" => "filis.trekkly.local",
-//                'HTTP_X_AUTH' => 'ASD',
-//                'REQUEST_METHOD'  => 'POST',
-//                "SCRIPT_FILENAME" => "/var/www/html/public/index.php",
-//                "REQUEST_URI" => "/identity/register",
-//                'CONTENT_TYPE'    => 'application/x-www-form-urlencoded',
-//                'CONTENT_LENGTH'  => (string)strlen($content),
-////                "QUERY_STRING" => "",
-//            ],
-//            $content
-//        );
-//
-//        dump($s);
-//    }
-
     public function test_it_throws_an_exception_when_socket_could_not_created(): void
     {
         $functions = new FakeFunctions([
@@ -55,7 +23,9 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'Protocol not supported',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', 9000, [], null, null, $functions);
+        $client = new FastcgiClient('10.5.0.2', 9000, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ], 500, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage("Socket could not be created: Protocol not supported (93)");
@@ -73,10 +43,12 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', 9000, [], null, null, $functions);
+        $client = new FastcgiClient('10.5.0.2', 9000, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ], 500, null, $functions);
 
         $this->expectException(SocketException::class);
-        $this->expectExceptionMessage('Failed to connect to 10.5.32.2:9000: No route to host (113)');
+        $this->expectExceptionMessage('Failed to connect to 10.5.0.2:9000: No route to host (113)');
         $this->expectExceptionCode(113);
 
         $request = new Request();
@@ -91,10 +63,12 @@ class FastcgiClientTest extends TestCase
             'socket_strerror' => 'No route to host',
         ]);
 
-        $client = new FastcgiClient('10.5.32.2', null, [], null, null, $functions);
+        $client = new FastcgiClient('10.5.0.2', null, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ], 500, null, $functions);
 
         $this->expectException(SocketException::class);
-        $this->expectExceptionMessage('Failed to connect to 10.5.32.2: No route to host (113)');
+        $this->expectExceptionMessage('Failed to connect to 10.5.0.2: No route to host (113)');
         $this->expectExceptionCode(113);
 
         $request = new Request();
@@ -108,7 +82,9 @@ class FastcgiClientTest extends TestCase
             'socket_set_option' => false
         ]);
 
-        $client = new FastcgiClient('10.5.30.2', 9000, [], 3000, null, $functions);
+        $client = new FastcgiClient('10.5.30.2', 9000, [
+            'SCRIPT_FILENAME' => '/var/www/html/public/index.php',
+        ], 3000, null, $functions);
 
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to set timeout to 3000 ms');
@@ -186,10 +162,5 @@ class FastcgiClientTest extends TestCase
         $response = $client->sendAsync($request);
 
         $this->assertEquals("Hello", (string)$response->wait()->getBody());
-    }
-
-    public function test_it_sends_requests(): void
-    {
-
     }
 }
