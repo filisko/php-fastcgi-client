@@ -585,13 +585,13 @@ class FastcgiClient implements FastcgiClientInterface
      * @param int $requestId
      * @param int $timeoutMs the number of milliseconds to wait for the response
      *
-     * @throws CommunicationException
+     * @throws SocketException
      * @throws TimeoutException
      */
     public function waitForResponse(int $requestId, int $timeoutMs): bool
     {
         if (!in_array($requestId, $this->pendingRequests)) {
-            throw new CommunicationException('Invalid request id given');
+            throw new SocketException('Invalid request id given');
         }
 
         // Need to manually check since we might do several reads none of which timeout themselves
