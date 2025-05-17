@@ -8,7 +8,7 @@
 
 A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP requests directly to FastCGI applications like PHP-FPM. The library supports request multiplexing, provides a Promise-based API using Guzzle Promises, and automatically converts FastCGI responses into PSR-7 Responses.
 
-## Requirements
+## 🚩 Requirements
 
 * PHP >= 7.2
 * PSR-7 - HTTP mesage implementation
@@ -40,13 +40,13 @@ This package is installable and autoloadable via Composer as [filisko/php-fastcg
 composer require filisko/php-fastcgi-client
 ```
 
-## Usage
+## 👨‍💻 Usage
 
 TODO
 
 ---
 
-## License and Contribution
+## 📃 License and Contribution
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
 
