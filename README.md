@@ -6,7 +6,7 @@
 ![Coverage Status][ico-coverage]
 [![Total Downloads][ico-downloads]][link-packagist]
 
-TODO
+A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP requests directly to FastCGI applications like PHP-FPM. The library supports request multiplexing, provides a Promise-based API using Guzzle Promises, and automatically converts FastCGI responses into PSR-7 Responses.
 
 ## Requirements
 
