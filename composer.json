@@ -5,6 +5,7 @@
     "license": "MIT",
     "keywords": [
         "fastcgi",
+        "phpfpm",
         "client",
         "psr7",
         "psr17",
@@ -21,7 +22,7 @@
         "issues": "https://github.com/filisko/php-fastcgi-client/issues"
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "filisko/testable-phpfunctions": "dev-main",
         "guzzlehttp/promises": "^2.2",
         "middlewares/utils": "^2 || ^3 || ^4",
