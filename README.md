@@ -22,7 +22,7 @@ TODO
 
 This library came out of the need to perform end-to-end tests in the fastest possible way. My main goal was to get outside the app to be able to perform basic assertions.
 
-We could say it fills the gap between browser-based testing tools like Selenium and framework-specific solutions like Symfony's KernelTestCase.
+We could say it fills the gap between browser-based testing tools like Selenium and framework-specific solutions like Symfony's KernelTestCase, which doesn't go outside the app.
 
 By communicating directly with PHP's FastCGI interface via socket connections, it provides true end-to-end feedback with exceptional performance, which allows developers to test their applications from the outside while maintaining the speed needed for efficient test-driven development.
 
