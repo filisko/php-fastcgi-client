@@ -28,7 +28,11 @@ By communicating directly with PHP's FastCGI interface via socket connections, i
 
 Additionally, the implementation leverages modern tools like Guzzle Promises for asynchronous processing and standardised PSR-7 responses for seamless integration with your existing knowledge.
 
-The detailed comments in the code transform what could be cryptic hard-to-maintain low-level protocol implementation code into something understandable and maintainable. The extensive protocol explanations serve as an educational resource for developers interested in learning how the FastCGI protocol works. The quality of the documentation is outstanding, and it will be greatly appreciated by any developer who wants to make improvements or gain deeper insights into FastCGI's inner workings.
+The detailed comments in the code transform what could be a hard-to-understand low-level protocol implementation code into something understandable and maintainable. The quality of the documentation is outstanding, and it will be greatly appreciated by any developer who wants to make improvements to the library or gain deeper insights into FastCGI's inner workings and use it as an educational resource about the protocol.
+
+📄 Protocol reference:
+
+- https://fastcgi-archives.github.io/FastCGI_Specification.html
 
 ## Installation
 
