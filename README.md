@@ -12,13 +12,13 @@ A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP 
 
 * PHP >= 7.2
 
-## Use Cases
+## 🎯 Use Cases
 
 - Talk directly to PHP-FPM without an HTTP server (e.g., from a custom gateway).
 - Benchmark or test PHP-FPM pools under load.
 - Run end-to-end tests with PHPUnit in a much faster way (no HTTP yet still PSR-7 responses).
 
-## Story
+## 📖 Story
 
 This library came out of the need to perform end-to-end tests in the fastest possible way. My main goal was to get outside the app to be able to perform basic assertions.
 
