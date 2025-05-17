@@ -1,7 +1,7 @@
 {
     "name": "filisko/php-fastcgi-client",
     "type": "library",
-    "description": "A library for testing PHP's built-in functions or language constructs.",
+    "description": "A modern FastCGI client that supports PSR-7 responses",
     "license": "MIT",
     "keywords": [
         "fastcgi",
@@ -53,6 +53,6 @@
         "cs-fix": "php-cs-fixer fix",
         "phpstan": "phpstan analyse",
         "test": "phpunit",
-        "coverage-html": "XDEBUG_MODE=coverage phpunit --coverage-html=build/html"
+        "coverage": "phpunit --coverage-html=build/html"
     }
 }
