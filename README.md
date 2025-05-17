@@ -17,8 +17,16 @@ There are no excuses for not testing PHP functions anymore!
 ## Use Cases
 
 - Talk directly to PHP-FPM without an HTTP server (e.g., from a custom gateway). 
-- Benchmarking or testing PHP-FPM pools under load.
+- Benchmark or test PHP-FPM pools under load.
 - Run end-to-end tests with PHPUnit in a much faster way (no HTTP yet still PSR-7 responses).
+
+## Story
+
+This library came out of the need to perform end-to-end tests in the fastest possible way. My only goal was to get outside the app to be able to perform basic assertions.
+
+We could say it fills the gap between browser-based testing tools like Selenium and framework-specific solutions like Symfony's KernelTestCase.
+
+By communicating directly with PHP's FastCGI interface, it provides true end-to-end feedback with exceptional performance, allowing developers to test their applications from the outside while maintaining the speed needed for efficient test-driven development.
 
 ## Installation
 
