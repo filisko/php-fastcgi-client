@@ -22,7 +22,7 @@ There are no excuses for not testing PHP functions anymore!
 
 ## Story
 
-This library came out of the need to perform end-to-end tests in the fastest possible way. My only goal was to get outside the app to be able to perform basic assertions.
+This library came out of the need to perform end-to-end tests in the fastest possible way. My main goal was to get outside the app to be able to perform basic assertions.
 
 We could say it fills the gap between browser-based testing tools like Selenium and framework-specific solutions like Symfony's KernelTestCase.
 
