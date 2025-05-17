@@ -22,7 +22,7 @@ A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP 
 
 This library came out of the need to perform end-to-end tests in the fastest possible way. My main goal was to get outside the app in order to make assertions.
 
-We could say it fills the gap between browser-based testing tools like Selenium (slow) and solutions like Symfony's KernelTestCase, which doesn't go outside the app yet it makes it feel like it did (very fast).
+We could say it fills the gap between browser-based testing tools like Selenium (slow) and solutions like Symfony's KernelTestCase, which doesn't go outside the app although it's at the very edge (very fast).
 
 By communicating directly with PHP's FastCGI interface via socket connections, it provides true end-to-end feedback with exceptional performance, which allows developers to test their applications from the outside while maintaining the speed needed for efficient test-driven development. 
 
