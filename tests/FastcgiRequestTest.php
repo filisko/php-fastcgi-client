@@ -4,21 +4,22 @@ declare(strict_types=1);
 namespace Filisko\Tests;
 
 use Filisko\FastcgiRequest;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
-use Sunrise\Http\Message\Request;
-use Sunrise\Http\Message\Stream;
 
 class FastcgiRequestTest extends TestCase
 {
     public function test_defaults(): void
     {
-        $psrRequest = new Request();
+        $request = new Request('GET', 'https://app.local/');
 
-        $fastCgiRequest = FastcgiRequest::fromPsrRequest($psrRequest);
+        $fastCgiRequest = FastcgiRequest::fromPsrRequest($request);
 
         $expectedFastCgiRequest = new FastcgiRequest([
             'REQUEST_URI' => '/',
             'REQUEST_METHOD'  => 'GET',
+            'HTTP_HOST' => 'app.local'
         ]);
 
         $this->assertEquals(

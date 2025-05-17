@@ -10,8 +10,8 @@ use Filisko\FakeStatic;
 use Filisko\FastcgiClient;
 use Filisko\SocketException;
 use Filisko\Tests\Helpers\FastcgiTestHelper;
+use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use Sunrise\Http\Message\Request;
 
 class FastcgiClientTest extends TestCase
 {
@@ -31,7 +31,7 @@ class FastcgiClientTest extends TestCase
         $this->expectExceptionMessage("Socket could not be created: Protocol not supported (93)");
         $this->expectExceptionCode(93);
 
-        $request = new Request();
+        $request = new Request('GET', 'https://app.local/');
         $client->sendAsync($request);
     }
 
@@ -51,7 +51,7 @@ class FastcgiClientTest extends TestCase
         $this->expectExceptionMessage('Failed to connect to 10.5.0.2:9000: No route to host (113)');
         $this->expectExceptionCode(113);
 
-        $request = new Request();
+        $request = new Request('GET', 'https://app.local/');
         $client->sendAsync($request);
     }
 
@@ -71,7 +71,7 @@ class FastcgiClientTest extends TestCase
         $this->expectExceptionMessage('Failed to connect to 10.5.0.2: No route to host (113)');
         $this->expectExceptionCode(113);
 
-        $request = new Request();
+        $request = new Request('GET', 'https://app.local/');
         $client->sendAsync($request);
     }
 
@@ -89,7 +89,7 @@ class FastcgiClientTest extends TestCase
         $this->expectException(SocketException::class);
         $this->expectExceptionMessage('Failed to set timeout to 3000 ms');
 
-        $request = new Request();
+        $request = new Request('GET', 'https://app.local/');
         $client->sendAsync($request);
     }
 
