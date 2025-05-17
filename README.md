@@ -28,6 +28,8 @@ By communicating directly with PHP's FastCGI interface via socket connections, i
 
 Additionally, the implementation leverages modern tools like Guzzle Promises for asynchronous processing and standardised PSR-7 responses for seamless integration with your existing knowledge.
 
+The detailed comments of the code transform what could be cryptic, hard-to-maintain low-level protocol implementation code into something understandable and maintainable. The quality of the documentation is outstanding, and it will be greatly appreciated by any developer who wants to make any improvements.
+
 ## Installation
 
 This package is installable and autoloadable via Composer as [filisko/php-fastcgi-client](https://packagist.org/packages/filisko/php-fastcgi-client).
