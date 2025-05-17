@@ -1,7 +1,7 @@
 {
     "name": "filisko/php-fastcgi-client",
     "type": "library",
-    "description": "A modern FastCGI client that supports PSR-7 responses",
+    "description": "A modern and lightweight FastCGI client with PSR-7 responses",
     "license": "MIT",
     "keywords": [
         "fastcgi",
