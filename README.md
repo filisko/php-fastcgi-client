@@ -18,7 +18,7 @@ There are no excuses for not testing PHP functions anymore!
 
 - Talk directly to PHP-FPM without an HTTP server (e.g., from a custom gateway). 
 - Benchmarking or testing PHP-FPM pools under load.
-- Run end-to-end tests with PHPUnit in a much faster way.
+- Run end-to-end tests with PHPUnit in a much faster way (no HTTP yet still PSR-7 responses).
 
 ## Installation
 
