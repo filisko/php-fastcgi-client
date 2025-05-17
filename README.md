@@ -11,6 +11,8 @@ A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP 
 ## Requirements
 
 * PHP >= 7.2
+* PSR-7 - HTTP mesage implementation
+* PSR-17 - HTTP message factory implementation
 
 ## 🎯 Use Cases
 
