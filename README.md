@@ -28,7 +28,7 @@ By communicating directly with PHP's FastCGI interface via socket connections, i
 
 ## Installation
 
-This package is installable and autoloadable via Composer as [filisko/testable-phpfunctions](https://packagist.org/packages/filisko/testable-phpfunctions).
+This package is installable and autoloadable via Composer as [filisko/filisko/php-fastcgi-client](https://packagist.org/packages/filisko/filisko/php-fastcgi-client).
 
 ```sh
 composer require filisko/php-fastcgi-client
