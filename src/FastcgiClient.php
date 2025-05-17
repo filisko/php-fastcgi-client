@@ -350,7 +350,7 @@ class FastcgiClient implements FastcgiClientInterface
 
         $parts = explode("\r\n\r\n", $response, 2);
 
-        /** @var array<string,string|string[]> $headers */
+        /** @var array<string,string[]> $headers */
         $headers = [];
         if (isset($parts[0])) {
             $headerLines = explode("\r\n", $parts[0]);
