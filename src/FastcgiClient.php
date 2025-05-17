@@ -291,7 +291,7 @@ class FastcgiClient implements FastcgiClientInterface
             }
         );
 
-        // Track the request using the response object
+        // Track the request using its IDt
         $this->pendingRequests[] = $id;
 
         return $promise;
