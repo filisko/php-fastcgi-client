@@ -15,8 +15,12 @@
          processIsolation="false"
          stopOnFailure="false"
          failOnWarning="true">
+    <php>
+        <env name="XDEBUG_MODE" value="coverage"/>
+    </php>
+
     <testsuites>
-        <testsuite name="AccessLog test suite">
+        <testsuite name="Test suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
