@@ -22,7 +22,7 @@ In order for this package to work, you need to install a PSR-7 and PSR-17 implem
 composer require guzzlehttp/psr7
 ```
 
-This package itself is installable and autoloadable via Composer as [filisko/fastcgi-client](https://packagist.org/packages/filisko/fastcgi-client).
+The package itself is installable and autoloadable via Composer as [filisko/fastcgi-client](https://packagist.org/packages/filisko/fastcgi-client).
 
 ```sh
 composer require filisko/fastcgi-client
