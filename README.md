@@ -14,6 +14,20 @@ A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP 
 * PSR-7 - HTTP mesage implementation
 * PSR-17 - HTTP message factory implementation
 
+## Installation
+
+In order for this package to work, you need to install a PSR-7 and PSR-17 implementation. You can install `guzzlehttp/psr7` (used by this lib):
+
+```sh
+composer require guzzlehttp/psr7
+```
+
+This package itself is installable and autoloadable via Composer as [filisko/fastcgi-client](https://packagist.org/packages/filisko/fastcgi-client).
+
+```sh
+composer require filisko/fastcgi-client
+```
+
 ## 🎯 Use Cases
 
 - Talk directly to PHP-FPM without an HTTP server (e.g., from a custom gateway).
@@ -32,14 +46,6 @@ Additionally, the implementation leverages modern tools like Guzzle Promises for
 
 The documentation in the code serves both as a guide for developers interested in making improvements to this library or as an educational resource for those wanting to learn how the [FastCGI protocol](https://fastcgi-archives.github.io/FastCGI_Specification.html) works, turning a hard-to-understand code of a low-level protocol implementation into something understandable and maintainable.
 
-## Installation
-
-This package is installable and autoloadable via Composer as [filisko/php-fastcgi-client](https://packagist.org/packages/filisko/php-fastcgi-client).
-
-```sh
-composer require filisko/php-fastcgi-client
-```
-
 ## 👨‍💻 Usage
 
 TODO
@@ -52,11 +58,11 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes a
 
 The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/filisko/php-fastcgi-client.svg?style=flat
+[ico-version]: https://img.shields.io/packagist/v/filisko/fastcgi-client.svg?style=flat
 [ico-license]: https://img.shields.io/badge/license-MIT-informational.svg?style=flat
-[ico-tests]: https://github.com/filisko/php-fastcgi-client/workflows/testing/badge.svg
-[ico-coverage]: https://coveralls.io/repos/github/filisko/php-fastcgi-client/badge.svg?branch=main
-[ico-downloads]: https://img.shields.io/packagist/dt/filisko/php-fastcgi-client.svg?style=flat
+[ico-tests]: https://github.com/filisko/fastcgi-client/workflows/testing/badge.svg
+[ico-coverage]: https://coveralls.io/repos/github/filisko/fastcgi-client/badge.svg?branch=main
+[ico-downloads]: https://img.shields.io/packagist/dt/filisko/fastcgi-client.svg?style=flat
 
-[link-packagist]: https://packagist.org/packages/filisko/php-fastcgi-client
+[link-packagist]: https://packagist.org/packages/filisko/fastcgi-client
 

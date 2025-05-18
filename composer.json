@@ -17,9 +17,9 @@
         "tests",
         "sockets"
     ],
-    "homepage": "https://github.com/filisko/php-fastcgi-client",
+    "homepage": "https://github.com/filisko/fastcgi-client",
     "support": {
-        "issues": "https://github.com/filisko/php-fastcgi-client/issues"
+        "issues": "https://github.com/filisko/fastcgi-client/issues"
     },
     "require": {
         "php": ">=7.2",
