@@ -1,5 +1,5 @@
 {
-    "name": "filisko/php-fastcgi-client",
+    "name": "filisko/fastcgi-client",
     "type": "library",
     "description": "A modern and lightweight FastCGI client that works with Guzzle promises and PSR-7 responses",
     "license": "MIT",
