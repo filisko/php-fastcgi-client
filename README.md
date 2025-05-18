@@ -16,7 +16,7 @@ A modern, fully compliant FastCGI client for PHP that allows sending PSR-7 HTTP 
 
 ## 🧑‍🔧 Installation
 
-In order for this package to work, you need to install a PSR-7 and PSR-17 implementation. You can install `guzzlehttp/psr7` (used by this lib):
+In order for this package to work, you need to install a PSR-7 and PSR-17 implementation. You can install `guzzlehttp/psr7`, which is used by this lib:
 
 ```sh
 composer require guzzlehttp/psr7
