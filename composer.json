@@ -38,6 +38,11 @@
         "guzzlehttp/psr7": "^2.7",
         "ext-json": "*"
     },
+    "suggest": {
+        "laminas/laminas-diactoros": "Laminas' PSR-7 and PSR-17 implementation",
+        "nyholm/psr7": "Lightweight PSR-7 and PSR-17 implementation",
+        "guzzlehttp/psr7": "Guzzle's PSR-7 and PSR-17 implementation"
+    },
     "autoload": {
         "psr-4": {
             "Filisko\\": "src/"
