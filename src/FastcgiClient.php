@@ -303,7 +303,7 @@ class FastcgiClient implements FastcgiClientInterface
     }
 
     /**
-     * Wait for response and parse it into a PSR response
+     * Wait for a response and convert it into a PSR response.
      */
     public function waitForResponseAndParse(int $requestId): ResponseInterface
     {
