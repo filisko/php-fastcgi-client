@@ -315,7 +315,7 @@ class FastcgiClient implements FastcgiClientInterface
 
         $response = $this->completedResponses[$requestId];
 
-        // Clean up the completed response now that we've used it
+        // Clean up the completed response now that we returned it (we've done our job)
         unset($this->completedResponses[$requestId]);
 
         return $response;
