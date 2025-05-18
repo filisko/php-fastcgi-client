@@ -23,7 +23,7 @@
     },
     "require": {
         "php": ">=7.2",
-        "filisko/testable-phpfunctions": "dev-main",
+        "filisko/testable-functions": "dev-main",
         "guzzlehttp/promises": "^2.2",
         "middlewares/utils": "^2 || ^3 || ^4",
         "psr/http-factory": "^1.0",
