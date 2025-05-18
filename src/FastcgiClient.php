@@ -221,10 +221,15 @@ class FastcgiClient implements FastcgiClientInterface
         // A FastCGI request is not a single blob of data.
         // It's a sequence of packets, sent in order, each with a specific type.
         // -----------------------------------------------------------------------------
-        // In our case the order is:
+        // Client sends (in order):
         //   - BEGIN_REQUEST
-        //   - (ENVIRONMENT) PARAMS
-        //   - STDIN
+        //   - PARAMS (with data and one empty record to signal the end)
+        //   - STDIN (with data and one empty record to signal the end)
+        //
+        // Server responds (when ready):
+        //   - STDOUT (response data)
+        //   - STDERR (error data, if any)
+        //   - END_REQUEST (to signal completion)
         // -----------------------------------------------------------------------------
 
         $fastCgiRequest = $this->buildRecord(
